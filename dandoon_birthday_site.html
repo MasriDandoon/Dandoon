@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Dandoon 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #c0485c;
+    --rose-light: #f9e8ec;
+    --rose-mid: #e8a0ae;
+    --gold: #b8962e;
+    --gold-light: #f5edce;
+    --cream: #fdf8f0;
+    --deep: #2a1520;
+  }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 60% 40%, #fce8ed 0%, #fdf8f0 55%, #f5edce 100%);
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  /* Floating petals */
+  .petal {
+    position: absolute;
+    width: 10px;
+    height: 14px;
+    border-radius: 50% 0 50% 0;
+    background: var(--rose-mid);
+    opacity: 0;
+    animation: fall linear infinite;
+    pointer-events: none;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-60px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.5; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Glowing ring behind title */
+  .hero-glow {
+    position: absolute;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,72,92,0.13) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50%       { transform: translate(-50%, -50%) scale(1.15); opacity: 0.6; }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(10px, 2vw, 13px);
+    letter-spacing: 0.35em;
+    color: var(--rose);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+    position: relative;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 10vw, 110px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--deep);
+    margin: 0.3em 0 0.1em;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.6s forwards;
+    position: relative;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .hero-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 6vw, 64px);
+    font-weight: 500;
+    color: var(--rose);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.9s forwards;
+    position: relative;
+  }
+
+  .hero-date {
+    font-size: clamp(13px, 2.5vw, 17px);
+    font-style: italic;
+    color: var(--gold);
+    margin-top: 1rem;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+    position: relative;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    width: 240px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.4s forwards;
+    position: relative;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--rose-mid); }
+  .divider-rose { color: var(--rose); font-size: 18px; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeUp 1s ease 2s forwards;
+    color: var(--rose-mid);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .scroll-arrow {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--rose-mid));
+    animation: scrollDrop 1.6s ease-in-out infinite;
+  }
+  @keyframes scrollDrop {
+    0%, 100% { transform: scaleY(0.6) translateY(-6px); opacity: 0.4; }
+    50%       { transform: scaleY(1) translateY(0); opacity: 1; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── MESSAGE SECTION ── */
+  .section {
+    padding: 6rem 2rem;
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .message-text {
+    font-size: clamp(20px, 3.5vw, 30px);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--deep);
+  }
+  .message-text em { color: var(--rose); font-style: italic; }
+
+  /* ── PHOTO GALLERY ── */
+  .gallery-section {
+    background: var(--rose-light);
+    padding: 5rem 2rem;
+  }
+  .gallery-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--rose);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .photo-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    aspect-ratio: 3/4;
+    background: #e8c8d0;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .photo-frame:nth-child(2) { aspect-ratio: 3/4; margin-top: 2.5rem; }
+  .photo-frame:nth-child(4) { aspect-ratio: 3/4; margin-top: -2rem; }
+
+  .photo-frame:hover { transform: scale(1.03); z-index: 2; }
+
+  .photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+    filter: sepia(10%) saturate(110%);
+  }
+  .photo-frame:hover img { transform: scale(1.06); }
+
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(42,21,32,0.55) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .photo-frame:hover .photo-overlay { opacity: 1; }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--rose);
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+  .photo-placeholder svg { opacity: 0.4; }
+
+  /* ── COUNTDOWN ── */
+  .countdown-section {
+    padding: 5rem 2rem;
+    text-align: center;
+    background: var(--deep);
+    color: var(--cream);
+  }
+  .countdown-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--rose-mid);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+  .countdown-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .countdown-item { text-align: center; }
+  .countdown-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 10vw, 80px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1;
+    display: block;
+  }
+  .countdown-unit {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--rose-mid);
+    text-transform: uppercase;
+    margin-top: 6px;
+    display: block;
+  }
+  .countdown-sep {
+    font-size: 60px;
+    color: var(--rose);
+    line-height: 1.1;
+    align-self: flex-start;
+    padding-top: 4px;
+    font-weight: 300;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: var(--cream);
+  }
+  .footer-heart { font-size: 24px; color: var(--rose); animation: heartbeat 1.4s ease-in-out infinite; display: inline-block; }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25%       { transform: scale(1.25); }
+    40%       { transform: scale(1); }
+    60%       { transform: scale(1.15); }
+  }
+  .footer-text {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--gold);
+    margin-top: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Upload CTA */
+  .upload-hint {
+    background: white;
+    border: 1.5px dashed var(--rose-mid);
+    border-radius: 4px;
+    padding: 1.5rem;
+    max-width: 480px;
+    margin: 3rem auto 0;
+    font-size: 14px;
+    color: var(--rose);
+    font-style: italic;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .upload-hint:hover { background: var(--rose-light); }
+  .upload-hint strong { font-style: normal; display: block; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'Cinzel', serif; color: var(--rose); }
+
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .photo-frame:nth-child(2), .photo-frame:nth-child(4) { margin-top: 0; }
+  }
+   /* ── MESSAGE UNDER GALLERY ── */
+  .gallery-message-section {
+    padding: 5rem 2rem;
+    background: var(--cream);
+    text-align: center;
+  }
+  .gallery-message-box {
+    max-width: 780px;
+    margin: 0 auto;
+    border: 1px solid rgba(192,72,92,0.25);
+    background: rgba(255,255,255,0.55);
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 18px 45px rgba(42,21,32,0.06);
+  }
+  .gallery-message-text {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--deep);
+  }
+  .gallery-message-text em {
+    color: var(--rose);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+
+  <p class="hero-eyebrow">A celebration for the one I love</p>
+  <h1 class="hero-title">Happy<br><em>Birthday</em></h1>
+  <div class="hero-name">Dandoon</div>
+  <p class="hero-date">30 April · Dana's Special Day</p>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-rose">🌹</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- MESSAGE -->
+<section class="section">
+  <p class="section-label">A message from the heart</p>
+  <p class="message-text">
+    To my dearest <em>Dandoon</em> — every day with you is a gift,
+    but today the whole world celebrates the most wonderful person in it.
+    You are my <em>favourite chapter</em>, my softest place to land,
+    and the reason I smile for no reason at all.
+    <br><br>
+    <em>Happy Birthday, my love.</em>
+  </p>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <p class="gallery-title">Our moments together</p>
+  <div class="gallery-grid" id="gallery">
+
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21 " /></svg>
+          <img src="1.jpeg" alt="Photo 1">
+
+       
+      </div>
+      <div class="photo-overlay"></div>
+    </div>
+
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="2.jpeg" alt="Photo 1">
+
+      </div>
+      <div class="photo-overlay"></div>
+    </div>
+
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <img src="3.jpeg" alt="Photo 1">
+      </div>
+      <div class="photo-overlay"></div>
+    </div>
+
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="4.jpeg" alt="Photo 1">
+
+      </div>
+      <div class="photo-overlay"></div>
+    </div>
+
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <img src="5.jpeg" alt="Photo 1">
+      </div>
+      <div class="photo-overlay"></div>
+    </div>
+
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <img src="6.jpeg" alt="Photo 1">
+      </div>
+      <div class="photo-overlay"></div>
+    </div>
+    
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <img src="7.jpeg" alt="Photo 1">
+      </div>
+      <div class="photo-overlay"></div>
+    </div>
+    
+       <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <img src="9.jpeg" alt="Photo 1">
+      </div>
+      <div class="photo-overlay"></div>
+      
+    </div>
+        <div class="photo-frame">
+      <div class="photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <img src="11.jpeg" alt="Photo 1">
+      </div>
+      <div class="photo-overlay"></div>
+      
+    </div>
+   
+
+  </div>
+
+
+<!-- MESSAGE UNDER GALLERY -->
+<section class="gallery-message-section">
+  <div class="gallery-message-box">
+    <p class="section-label">A little note after our memories</p>
+    <p class="gallery-message-text">
+      Dandoon, these moments are only a small part of how special this day is.
+      May this year bring you more peace, laughter, beautiful memories, and everything your heart hopes for.
+      <br><br>
+      <em>You deserve a birthday as lovely as you are My Sweety Beauty.</em>
+      
+      <em>Your Beloved Beast </em>
+
+
+    </p>
+  </div>
+</section>
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <p class="countdown-label">Counting down to 30 April</p>
+  <div class="countdown-row">
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-days">8</span>
+      <span class="countdown-unit">Days</span>
+    </div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-hours">00</span>
+      <span class="countdown-unit">Hours</span>
+    </div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-mins">00</span>
+      <span class="countdown-unit">Minutes</span>
+    </div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-secs">00</span>
+      <span class="countdown-unit">Seconds</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="footer">
+  <div class="footer-heart">🌹</div>
+  <p class="footer-text">Made with love · For Dandoon · April 30</p>
+</section>
+
+
+<!-- PETALS -->
+<script>
+  (function() {
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * -20}%;
+        width: ${6 + Math.random() * 8}px;
+        height: ${9 + Math.random() * 10}px;
+        animation-duration: ${7 + Math.random() * 10}s;
+        animation-delay: ${Math.random() * 10}s;
+        opacity: 0;
+        transform: rotate(${Math.random() * 180}deg);
+        background: hsl(${340 + Math.random() * 20}deg, ${50 + Math.random() * 30}%, ${70 + Math.random() * 15}%);
+      `;
+      document.querySelector('.hero').appendChild(p);
+    }
+  })();
+
+  // Countdown
+  function updateCountdown() {
+    const target = new Date('2026-04-30T00:00:00');
+    const now = new Date();
+    let diff = target - now;
+    if (diff < 0) {
+      document.querySelector('.countdown-section').innerHTML = '<p style="font-family:Cormorant Garamond,serif;font-size:2rem;color:#fdf8f0;font-style:italic;">Today is the day! Happy Birthday Dandoon! 🌹</p>';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
