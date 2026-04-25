@@ -25,6 +25,222 @@
     overflow-x: hidden;
   }
 
+  /* ══════════════════════════════
+     SPLASH SCREEN
+  ══════════════════════════════ */
+  #splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #1a0a10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  #splash.fade-out {
+    animation: splashFadeOut 1.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+  @keyframes splashFadeOut {
+    0%   { opacity: 1; transform: scale(1); }
+    60%  { opacity: 1; transform: scale(1.04); }
+    100% { opacity: 0; transform: scale(1.08); pointer-events: none; }
+  }
+
+  /* Radial bloom behind the rose */
+  .splash-bloom {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,72,92,0.22) 0%, rgba(192,72,92,0.06) 45%, transparent 70%);
+    animation: bloomPulse 3s ease-in-out infinite;
+  }
+  @keyframes bloomPulse {
+    0%, 100% { transform: scale(0.9); opacity: 0.7; }
+    50%       { transform: scale(1.1); opacity: 1; }
+  }
+
+  /* Outer slow-spin ring */
+  .splash-ring {
+    position: absolute;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    border: 1px solid rgba(192,72,92,0.25);
+    animation: ringRotate 18s linear infinite;
+  }
+  .splash-ring::before {
+    content: '';
+    position: absolute;
+    top: -3px; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+    box-shadow: 0 0 12px 4px rgba(192,72,92,0.6);
+  }
+  @keyframes ringRotate { to { transform: rotate(360deg); } }
+
+  .splash-ring-2 {
+    width: 460px; height: 460px;
+    border: 1px solid rgba(192,72,92,0.12);
+    animation: ringRotate 28s linear infinite reverse;
+  }
+
+  /* The SVG rose in the center */
+  .splash-rose-wrap {
+    position: relative;
+    z-index: 2;
+    animation: roseEntrance 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  }
+  @keyframes roseEntrance {
+    from { transform: scale(0.3) rotate(-30deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .splash-rose-svg {
+    width: 180px;
+    height: 180px;
+    filter: drop-shadow(0 0 30px rgba(192,72,92,0.5)) drop-shadow(0 0 60px rgba(192,72,92,0.2));
+    animation: roseSway 4s ease-in-out infinite 2s;
+  }
+  @keyframes roseSway {
+    0%, 100% { transform: rotate(-3deg) scale(1); }
+    50%       { transform: rotate(3deg) scale(1.04); }
+  }
+
+  /* Text group */
+  .splash-text-group {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  .splash-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.45em;
+    color: rgba(232,160,174,0.7);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 1.4s forwards;
+    margin-bottom: 0.8rem;
+  }
+
+  .splash-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 10vw, 80px);
+    font-weight: 300;
+    color: #fdf8f0;
+    line-height: 1.05;
+    opacity: 0;
+    animation: fadeSlideUp 1.2s ease 1.7s forwards;
+  }
+  .splash-title em {
+    font-style: italic;
+    color: #e8a0ae;
+  }
+
+  .splash-name {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 5vw, 42px);
+    font-weight: 500;
+    color: var(--rose);
+    letter-spacing: 0.15em;
+    margin-top: 0.3em;
+    opacity: 0;
+    animation: fadeSlideUp 1.2s ease 2s forwards;
+    text-shadow: 0 0 40px rgba(192,72,92,0.6);
+  }
+
+  .splash-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 1.8rem auto 0;
+    width: 220px;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 2.3s forwards;
+  }
+  .splash-divider-line { flex: 1; height: 1px; background: rgba(232,160,174,0.35); }
+  .splash-divider-dot  { width: 5px; height: 5px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 8px rgba(192,72,92,0.8); }
+
+  .splash-cta {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeSlideUp 1s ease 2.8s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+  }
+  .splash-cta-text {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: rgba(232,160,174,0.5);
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+  }
+  .splash-cta-line {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(to bottom, rgba(192,72,92,0.6), transparent);
+    animation: ctaBounce 1.8s ease-in-out infinite 3.2s;
+  }
+  @keyframes ctaBounce {
+    0%, 100% { transform: scaleY(0.6) translateY(-6px); opacity: 0.5; }
+    50%       { transform: scaleY(1) translateY(0); opacity: 1; }
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Floating sparks */
+  .splash-spark {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkFloat linear infinite;
+    background: rgba(192,72,92,0.6);
+  }
+  @keyframes sparkFloat {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 0.7; }
+    100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
+  }
+
+  /* Petals on splash */
+  .splash-petal {
+    position: absolute;
+    border-radius: 50% 0 50% 0;
+    pointer-events: none;
+    opacity: 0;
+    animation: splashPetalFall linear infinite;
+  }
+  @keyframes splashPetalFall {
+    0%   { transform: translateY(-40px) rotate(0deg) translateX(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(110vh) rotate(540deg) translateX(30px); opacity: 0; }
+  }
+
+  /* ══════════════════════════════
+     MAIN CONTENT (hidden initially)
+  ══════════════════════════════ */
+  #main-content {
+    opacity: 0;
+    transition: opacity 0.8s ease 0.2s;
+  }
+  #main-content.visible { opacity: 1; }
+
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
@@ -39,7 +255,6 @@
     padding: 3rem 2rem;
   }
 
-  /* Floating petals */
   .petal {
     position: absolute;
     width: 10px;
@@ -57,7 +272,6 @@
     100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
   }
 
-  /* Glowing ring behind title */
   .hero-glow {
     position: absolute;
     width: 480px; height: 480px;
@@ -94,10 +308,7 @@
     animation: fadeUp 1.2s ease 0.6s forwards;
     position: relative;
   }
-  .hero-title em {
-    font-style: italic;
-    color: var(--rose);
-  }
+  .hero-title em { font-style: italic; color: var(--rose); }
 
   .hero-name {
     font-family: 'Cinzel', serif;
@@ -224,7 +435,6 @@
   }
   .photo-frame:nth-child(2) { aspect-ratio: 3/4; margin-top: 2.5rem; }
   .photo-frame:nth-child(4) { aspect-ratio: 3/4; margin-top: -2rem; }
-
   .photo-frame:hover { transform: scale(1.03); z-index: 2; }
 
   .photo-frame img {
@@ -328,29 +538,7 @@
     letter-spacing: 0.05em;
   }
 
-  /* Upload CTA */
-  .upload-hint {
-    background: white;
-    border: 1.5px dashed var(--rose-mid);
-    border-radius: 4px;
-    padding: 1.5rem;
-    max-width: 480px;
-    margin: 3rem auto 0;
-    font-size: 14px;
-    color: var(--rose);
-    font-style: italic;
-    letter-spacing: 0.03em;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .upload-hint:hover { background: var(--rose-light); }
-  .upload-hint strong { font-style: normal; display: block; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; font-family: 'Cinzel', serif; color: var(--rose); }
-
-  @media (max-width: 600px) {
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .photo-frame:nth-child(2), .photo-frame:nth-child(4) { margin-top: 0; }
-  }
-   /* ── MESSAGE UNDER GALLERY ── */
+  /* ── GALLERY MESSAGE ── */
   .gallery-message-section {
     padding: 5rem 2rem;
     background: var(--cream);
@@ -371,186 +559,313 @@
     line-height: 1.7;
     color: var(--deep);
   }
-  .gallery-message-text em {
-    color: var(--rose);
-    font-style: italic;
+  .gallery-message-text em { color: var(--rose); font-style: italic; }
+
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .photo-frame:nth-child(2), .photo-frame:nth-child(4) { margin-top: 0; }
+    .splash-ring { width: 280px; height: 280px; }
+    .splash-ring-2 { width: 340px; height: 340px; }
+    .splash-bloom { width: 340px; height: 340px; }
   }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow"></div>
+<!-- ═══════════════════════════════════════
+     SPLASH SCREEN
+═══════════════════════════════════════ -->
+<div id="splash">
+  <div class="splash-bloom"></div>
+  <div class="splash-ring"></div>
+  <div class="splash-ring splash-ring-2"></div>
 
-  <p class="hero-eyebrow">A celebration for the one I love</p>
-  <h1 class="hero-title">Happy<br><em>Birthday</em></h1>
-  <div class="hero-name">Dandoon</div>
-  <p class="hero-date">30 April · Dana's Special Day</p>
-
-  <div class="divider">
-    <div class="divider-line"></div>
-    <span class="divider-rose">🌹</span>
-    <div class="divider-line"></div>
+  <!-- SVG Rose -->
+  <div class="splash-rose-wrap">
+    <svg class="splash-rose-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Stem -->
+      <path d="M100 170 Q95 140 92 120" stroke="#4a7c59" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Leaves -->
+      <path d="M92 138 Q78 128 74 115 Q86 118 92 130" fill="#5a9c6a" opacity="0.85"/>
+      <path d="M94 148 Q108 140 112 126 Q101 130 95 142" fill="#4a8c5a" opacity="0.75"/>
+      <!-- Outer petals (darkest) -->
+      <ellipse cx="100" cy="95" rx="28" ry="22" fill="#8b2040" opacity="0.8" transform="rotate(-15 100 95)"/>
+      <ellipse cx="100" cy="95" rx="28" ry="22" fill="#8b2040" opacity="0.8" transform="rotate(30 100 95)"/>
+      <ellipse cx="100" cy="95" rx="28" ry="22" fill="#8b2040" opacity="0.8" transform="rotate(75 100 95)"/>
+      <ellipse cx="100" cy="95" rx="28" ry="22" fill="#8b2040" opacity="0.8" transform="rotate(120 100 95)"/>
+      <ellipse cx="100" cy="95" rx="28" ry="22" fill="#8b2040" opacity="0.8" transform="rotate(165 100 95)"/>
+      <!-- Mid petals -->
+      <ellipse cx="100" cy="92" rx="22" ry="17" fill="#b0304e" opacity="0.9" transform="rotate(0 100 92)"/>
+      <ellipse cx="100" cy="92" rx="22" ry="17" fill="#b0304e" opacity="0.9" transform="rotate(45 100 92)"/>
+      <ellipse cx="100" cy="92" rx="22" ry="17" fill="#b0304e" opacity="0.9" transform="rotate(90 100 92)"/>
+      <ellipse cx="100" cy="92" rx="22" ry="17" fill="#b0304e" opacity="0.9" transform="rotate(135 100 92)"/>
+      <!-- Inner petals -->
+      <ellipse cx="100" cy="90" rx="15" ry="12" fill="#c84060" opacity="0.95" transform="rotate(22 100 90)"/>
+      <ellipse cx="100" cy="90" rx="15" ry="12" fill="#c84060" opacity="0.95" transform="rotate(67 100 90)"/>
+      <ellipse cx="100" cy="90" rx="15" ry="12" fill="#c84060" opacity="0.95" transform="rotate(112 100 90)"/>
+      <!-- Center -->
+      <ellipse cx="100" cy="90" rx="9" ry="7" fill="#e05570" opacity="1"/>
+      <ellipse cx="100" cy="89" rx="5" ry="4" fill="#f0778a" opacity="0.9"/>
+      <!-- Glow center -->
+      <ellipse cx="100" cy="89" rx="3" ry="2.5" fill="#ffc0c8" opacity="0.7"/>
+    </svg>
   </div>
 
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-arrow"></div>
-  </div>
-</section>
-
-<!-- MESSAGE -->
-<section class="section">
-  <p class="section-label">A message from the heart</p>
-  <p class="message-text">
-    To my dearest <em>Dandoon</em> — every day with you is a gift,
-    but today the whole world celebrates the most wonderful person in it.
-    You are my <em>favourite chapter</em>, my softest place to land,
-    and the reason I smile for no reason at all.
-    <br><br>
-    <em>Happy Birthday, my love.</em>
-  </p>
-</section>
-
-<!-- GALLERY -->
-<section class="gallery-section">
-  <p class="gallery-title">Our moments together</p>
-  <div class="gallery-grid" id="gallery">
-
-    <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21 " /></svg>
-          <img src="1.jpeg" alt="Photo 1">
-
-       
-      </div>
-      <div class="photo-overlay"></div>
+  <!-- Text -->
+  <div class="splash-text-group">
+    <p class="splash-eyebrow">A gift made with love</p>
+    <h1 class="splash-title">Happy<br><em>Birthday</em></h1>
+    <div class="splash-name">Dandoon</div>
+    <div class="splash-divider">
+      <div class="splash-divider-line"></div>
+      <div class="splash-divider-dot"></div>
+      <div class="splash-divider-line"></div>
     </div>
-
-    <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <img src="2.jpeg" alt="Photo 1">
-
-      </div>
-      <div class="photo-overlay"></div>
-    </div>
-
-    <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <img src="3.jpeg" alt="Photo 1">
-      </div>
-      <div class="photo-overlay"></div>
-    </div>
-
-    <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          <img src="4.jpeg" alt="Photo 1">
-
-      </div>
-      <div class="photo-overlay"></div>
-    </div>
-
-    <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <img src="5.jpeg" alt="Photo 1">
-      </div>
-      <div class="photo-overlay"></div>
-    </div>
-
-    <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <img src="6.jpeg" alt="Photo 1">
-      </div>
-      <div class="photo-overlay"></div>
-    </div>
-    
-    <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <img src="7.jpeg" alt="Photo 1">
-      </div>
-      <div class="photo-overlay"></div>
-    </div>
-    
-       <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <img src="9.jpeg" alt="Photo 1">
-      </div>
-      <div class="photo-overlay"></div>
-      
-    </div>
-        <div class="photo-frame">
-      <div class="photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <img src="11.jpeg" alt="Photo 1">
-      </div>
-      <div class="photo-overlay"></div>
-      
-    </div>
-   
-
   </div>
 
+  <!-- CTA -->
+  <div class="splash-cta">
+    <span class="splash-cta-text">Tap anywhere to enter</span>
+    <div class="splash-cta-line"></div>
+  </div>
+</div>
 
-<!-- MESSAGE UNDER GALLERY -->
-<section class="gallery-message-section">
-  <div class="gallery-message-box">
-    <p class="section-label">A little note after our memories</p>
-    <p class="gallery-message-text">
-      Dandoon, these moments are only a small part of how special this day is.
-      May this year bring you more peace, laughter, beautiful memories, and everything your heart hopes for.
+<!-- ═══════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════ -->
+<div id="main-content">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <p class="hero-eyebrow">A celebration for the one I love</p>
+    <h1 class="hero-title">Happy<br><em>Birthday</em></h1>
+    <div class="hero-name">Dandoon</div>
+    <p class="hero-date">30 April · Dana's Special Day</p>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-rose">🌹</span>
+      <div class="divider-line"></div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- MESSAGE -->
+  <section class="section">
+    <p class="section-label">A message from the heart</p>
+    <p class="message-text">
+      To my dearest <em>Dandoon</em> — every day with you is a gift,
+      but today the whole world celebrates the most wonderful person in it.
+      You are my <em>favourite chapter</em>, my softest place to land,
+      and the reason I smile for no reason at all.
       <br><br>
-      <em>You deserve a birthday as lovely as you are My Sweety Beauty.</em>
-      
-      <em>Your Beloved Beast </em>
-
-
+      <em>Happy Birthday, my love.</em>
     </p>
-  </div>
-</section>
-<!-- COUNTDOWN -->
-<section class="countdown-section">
-  <p class="countdown-label">Counting down to 30 April</p>
-  <div class="countdown-row">
-    <div class="countdown-item">
-      <span class="countdown-num" id="cd-days">8</span>
-      <span class="countdown-unit">Days</span>
-    </div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-item">
-      <span class="countdown-num" id="cd-hours">00</span>
-      <span class="countdown-unit">Hours</span>
-    </div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-item">
-      <span class="countdown-num" id="cd-mins">00</span>
-      <span class="countdown-unit">Minutes</span>
-    </div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-item">
-      <span class="countdown-num" id="cd-secs">00</span>
-      <span class="countdown-unit">Seconds</span>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<section class="footer">
-  <div class="footer-heart">🌹</div>
-  <p class="footer-text">Made with love · For Dandoon · April 30</p>
-</section>
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <p class="gallery-title">Our moments together</p>
+    <div class="gallery-grid" id="gallery">
 
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="1.jpeg" alt="Photo 1">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
 
-<!-- PETALS -->
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="2.jpeg" alt="Photo 2">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="3.jpeg" alt="Photo 3">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="4.jpeg" alt="Photo 4">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="5.jpeg" alt="Photo 5">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="6.jpeg" alt="Photo 6">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="7.jpeg" alt="Photo 7">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="9.jpeg" alt="Photo 9">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="photo-frame">
+        <div class="photo-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c0485c" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <img src="11.jpeg" alt="Photo 11">
+        </div>
+        <div class="photo-overlay"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MESSAGE UNDER GALLERY -->
+  <section class="gallery-message-section">
+    <div class="gallery-message-box">
+      <p class="section-label">A little note after our memories</p>
+      <p class="gallery-message-text">
+        Dandoon, these moments are only a small part of how special this day is.
+        May this year bring you more peace, laughter, beautiful memories, and everything your heart hopes for.
+        <br><br>
+        <em>You deserve a birthday as lovely as you are My Sweety Beauty.</em>
+        <br>
+        <em>Your Beloved Beast</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section">
+    <p class="countdown-label">Counting down to 30 April</p>
+    <div class="countdown-row">
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-days">8</span>
+        <span class="countdown-unit">Days</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-hours">00</span>
+        <span class="countdown-unit">Hours</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-mins">00</span>
+        <span class="countdown-unit">Minutes</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-secs">00</span>
+        <span class="countdown-unit">Seconds</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <section class="footer">
+    <div class="footer-heart">🌹</div>
+    <p class="footer-text">Made with love · For Dandoon · April 30</p>
+  </section>
+
+</div><!-- end #main-content -->
+
 <script>
-  (function() {
+(function() {
+
+  /* ── Splash particles ── */
+  const splash = document.getElementById('splash');
+
+  // Rising sparks
+  for (let i = 0; i < 22; i++) {
+    const s = document.createElement('div');
+    s.className = 'splash-spark';
+    const size = 2 + Math.random() * 4;
+    s.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${10 + Math.random() * 80}%;
+      bottom: ${Math.random() * 30}%;
+      animation-duration: ${5 + Math.random() * 9}s;
+      animation-delay: ${Math.random() * 8}s;
+      opacity: 0;
+      background: hsl(${340 + Math.random() * 25}deg, 70%, ${60 + Math.random() * 25}%);
+    `;
+    splash.appendChild(s);
+  }
+
+  // Falling petals on splash
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'splash-petal';
+    const w = 5 + Math.random() * 7;
+    p.style.cssText = `
+      width: ${w}px; height: ${w * 1.4}px;
+      left: ${Math.random() * 100}%;
+      top: ${-5 + Math.random() * -10}%;
+      animation-duration: ${9 + Math.random() * 12}s;
+      animation-delay: ${Math.random() * 10}s;
+      background: hsl(${338 + Math.random() * 18}deg, ${45 + Math.random() * 25}%, ${72 + Math.random() * 14}%);
+      opacity: 0;
+    `;
+    splash.appendChild(p);
+  }
+
+  /* ── Dismiss splash ── */
+  function dismissSplash() {
+    splash.removeEventListener('click', dismissSplash);
+    splash.classList.add('fade-out');
+
+    // Show main content
+    const main = document.getElementById('main-content');
+    setTimeout(() => {
+      main.classList.add('visible');
+      splash.style.pointerEvents = 'none';
+    }, 600);
+
+    // Remove splash from DOM after animation
+    setTimeout(() => { splash.remove(); }, 1500);
+
+    // Spawn hero petals
+    spawnHeroPetals();
+  }
+
+  // Auto-dismiss after 6s if user doesn't tap
+  const autoDismiss = setTimeout(dismissSplash, 6500);
+
+  splash.addEventListener('click', () => {
+    clearTimeout(autoDismiss);
+    dismissSplash();
+  });
+
+  /* ── Hero petals ── */
+  function spawnHeroPetals() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
     for (let i = 0; i < 18; i++) {
       const p = document.createElement('div');
       p.className = 'petal';
@@ -565,30 +880,33 @@
         transform: rotate(${Math.random() * 180}deg);
         background: hsl(${340 + Math.random() * 20}deg, ${50 + Math.random() * 30}%, ${70 + Math.random() * 15}%);
       `;
-      document.querySelector('.hero').appendChild(p);
+      hero.appendChild(p);
     }
-  })();
+  }
 
-  // Countdown
+  /* ── Countdown ── */
   function updateCountdown() {
     const target = new Date('2026-04-30T00:00:00');
     const now = new Date();
     let diff = target - now;
     if (diff < 0) {
-      document.querySelector('.countdown-section').innerHTML = '<p style="font-family:Cormorant Garamond,serif;font-size:2rem;color:#fdf8f0;font-style:italic;">Today is the day! Happy Birthday Dandoon! 🌹</p>';
+      const cs = document.querySelector('.countdown-section');
+      if (cs) cs.innerHTML = '<p style="font-family:Cormorant Garamond,serif;font-size:2rem;color:#fdf8f0;font-style:italic;">Today is the day! Happy Birthday Dandoon! 🌹</p>';
       return;
     }
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
     document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+})();
 </script>
 
 </body>
