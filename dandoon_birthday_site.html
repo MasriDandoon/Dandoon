@@ -470,52 +470,282 @@
   }
   .photo-placeholder svg { opacity: 0.4; }
 
-  /* ── COUNTDOWN ── */
-  .countdown-section {
-    padding: 5rem 2rem;
-    text-align: center;
-    background: var(--deep);
-    color: var(--cream);
-  }
-  .countdown-label {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 0.35em;
-    color: var(--rose-mid);
-    text-transform: uppercase;
-    margin-bottom: 2.5rem;
-  }
-  .countdown-row {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-  }
-  .countdown-item { text-align: center; }
-  .countdown-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(48px, 10vw, 80px);
-    font-weight: 300;
-    color: var(--cream);
-    line-height: 1;
-    display: block;
-  }
-  .countdown-unit {
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: var(--rose-mid);
-    text-transform: uppercase;
-    margin-top: 6px;
-    display: block;
-  }
-  .countdown-sep {
-    font-size: 60px;
-    color: var(--rose);
-    line-height: 1.1;
-    align-self: flex-start;
-    padding-top: 4px;
-    font-weight: 300;
-  }
+  /* ══ TIMELINE SECTION ══ */
+.timeline-section {
+  background: linear-gradient(160deg, var(--gold-light) 0%, var(--cream) 100%);
+  padding: 6rem 2rem;
+}
+.timeline-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.timeline-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.timeline-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 4.5vw, 50px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--deep);
+}
+.timeline-title em { color: var(--gold); font-style: normal; }
+ 
+.timeline-list { position: relative; }
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--rose-mid), var(--gold), transparent);
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+.tl-item:nth-child(even) { flex-direction: row-reverse; }
+ 
+.tl-card {
+  width: calc(50% - 2.5rem);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(192,72,92,0.18);
+  border-radius: 12px;
+  padding: 1.6rem 1.8rem;
+  box-shadow: 0 8px 30px rgba(42,21,32,0.07);
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.tl-card:hover { transform: translateY(-4px); }
+.tl-year {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--rose);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.tl-text {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--deep);
+  line-height: 1.55;
+  font-style: italic;
+}
+.tl-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--rose);
+  box-shadow: 0 0 0 4px rgba(192,72,92,0.2);
+  z-index: 1;
+}
+ 
+/* ── COUNTDOWN ── */
+.countdown-section {
+  padding: 6rem 2rem;
+  text-align: center;
+  background: var(--deep);
+  position: relative;
+  overflow: hidden;
+}
+.countdown-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(192,72,92,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+.countdown-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.38em;
+  color: var(--rose-mid);
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.countdown-label::before,
+.countdown-label::after {
+  content: '';
+  width: 36px; height: 1px;
+  background: rgba(192,72,92,0.4);
+}
+.countdown-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+.countdown-item {
+  text-align: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(192,72,92,0.22);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  min-width: 120px;
+  transition: border-color 0.3s;
+}
+.countdown-item:hover { border-color: rgba(192,72,92,0.5); }
+.countdown-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 10vw, 84px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  display: block;
+}
+.countdown-unit {
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--rose-mid);
+  text-transform: uppercase;
+  margin-top: 8px;
+  display: block;
+  font-family: 'Cinzel', serif;
+}
+.countdown-sep {
+  font-size: 52px;
+  color: rgba(192,72,92,0.5);
+  line-height: 1;
+  font-weight: 300;
+  padding-bottom: 8px;
+}
+.countdown-sub {
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(253,248,240,0.4);
+  margin-top: 2.5rem;
+  position: relative;
+}
+ 
+/* ══ MUSIC PLAYER ══ */
+.music-section {
+  padding: 5rem 2rem;
+  background: var(--cream);
+  text-align: center;
+}
+.music-player {
+  max-width: 480px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: var(--blur);
+  border: 1px solid rgba(192,72,92,0.2);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 20px 60px rgba(42,21,32,0.08);
+}
+.music-album-art {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose-dark), var(--rose), var(--rose-mid));
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 8px 30px rgba(192,72,92,0.35);
+  transition: transform 0.3s;
+  animation: none;
+}
+.music-album-art.spinning {
+  animation: spin 8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.music-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--deep);
+  margin-bottom: 4px;
+}
+.music-artist {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--rose);
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+.music-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(192,72,92,0.15);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: visible;
+}
+.music-progress {
+  height: 100%;
+  background: linear-gradient(to right, var(--rose-dark), var(--rose));
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.5s linear;
+  position: relative;
+}
+.music-progress::after {
+  content: '';
+  position: absolute;
+  right: -4px; top: -3px;
+  width: 9px; height: 9px;
+  background: var(--rose);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(192,72,92,0.6);
+}
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.music-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--deep);
+  font-size: 20px;
+  opacity: 0.5;
+  transition: opacity 0.2s, transform 0.2s;
+  padding: 6px;
+}
+.music-btn:hover { opacity: 1; transform: scale(1.15); }
+.music-play-btn {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: var(--rose);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(192,72,92,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  opacity: 1;
+}
+.music-play-btn:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(192,72,92,0.55); }
+.music-note {
+  font-size: 12px;
+  color: rgba(42,21,32,0.35);
+  margin-top: 1.2rem;
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
 
   /* ── FOOTER ── */
   .footer {
@@ -761,6 +991,78 @@
     </div>
   </section>
 
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="timeline-inner">
+      <div class="timeline-header reveal">
+        <p class="section-label">Our story</p>
+        <h2 class="timeline-title">Chapters written in <em>love</em></h2>
+      </div>
+      <div class="timeline-list">
+ 
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-year">The beginning</div>
+            <p class="tl-text">"The day I first saw you, I felt something in my life shift — quietly, gently, but permanently.
+
+That first meeting at Vanilla Café was not ordinary. There was something warm and familiar about it, as if our souls had already known each other long before that moment. We shared stories, memories, and experiences.
+
+What started as a simple conversation quickly became something deeper. We found comfort in each other so naturally, like we had been part of each other’s lives for years — or maybe even for an entire lifetime.
+     "</p>
+          </div>
+          <div class="tl-dot"></div>
+          <div style="width:calc(50% - 2.5rem)"></div>
+        </div>
+ 
+        <div class="tl-item reveal">
+          <div style="width:calc(50% - 2.5rem)"></div>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">Every ordinary day</div>
+            <p class="tl-text">"You turn the simplest moments into memories I want to hold on to forever.
+
+Like the time we shared the same iced tea order, or those quiet moments in the library, or every warm conversation that made everything around us feel softer. Even when we were just talking, studying, or sitting together, there was always something between us that felt special.
+
+Everyone around us could see it before we even said it — the way we cared, the way we understood each other, the way we were slowly falling in love.
+
+We shared our problems and tried to make them lighter for each other. We faced every question, every project, and every challenge as partners — not just in work, but in feeling, support, and trust. And somehow, through all those little moments, you became one of the most beautiful parts of my life.
+   "</p>
+          </div>
+        </div>
+ 
+        <div class="tl-item reveal">
+          <div class="tl-card">
+            <div class="tl-year">This birthday</div>
+            <p class="tl-text">"Today, I celebrate not only you, but every beautiful moment you have brought into my life — every laugh, every quiet evening, every warm conversation, and every reason you give me to feel grateful.
+
+And as I have told you before, face to face, and even in that blue sticky note I once gave you: **it is a promise.**
+
+Next year, on a day like today, we will not just be dreaming about our future — we will be officially engaged, and I will proudly call you my Fiancée.
+"</p>
+          </div>
+          <div class="tl-dot"></div>
+          <div style="width:calc(50% - 2.5rem)"></div>
+        </div>
+ 
+        <div class="tl-item reveal">
+          <div style="width:calc(50% - 2.5rem)"></div>
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-year">All the tomorrows</div>
+            <p class="tl-text">"And I will never forget all the dreams we have shared, and all the dreams we still keep building together — the names of our future children, the places we want to travel to, the way we imagine our honeymoon, our celebrations, and every little detail of the life we hope to create side by side.
+
+We have talked about our wedding, the songs we want to hear, the moments we want to live, and even how our home will look — a home filled with love, peace, laughter, and us. And somehow, with every day that passes, these dreams no longer feel far away. They feel closer, more real, and more possible because I see them with you.
+
+Danddon, last but not least, I want you to know how deeply grateful I am for you. Thank you for being the softest, kindest, most beautiful part of my life. Thank you for making my days warmer, my dreams bigger, and my heart feel at home. You are not only someone I love — you are the future I keep praying for.
+"</p>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </section>
+ 
+
   <!-- COUNTDOWN -->
   <section class="countdown-section">
     <p class="countdown-label">Counting down to 30 April</p>
@@ -786,6 +1088,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- FOOTER -->
   <section class="footer">
